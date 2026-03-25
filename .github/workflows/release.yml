@@ -90,6 +90,15 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: 'npm' # use cache
+          
+
+      # 自动匹配
+      - name: Update package.json version
+        run: |
+          node -e "const fs=require('fs');
+          const pkg=JSON.parse(fs.readFileSync('package.json','utf8')); 
+          pkg.version='${{ needs.increment-version.outputs.version }}'.replace('v',''); fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2))"
+
 
       - name: Build
         env:
