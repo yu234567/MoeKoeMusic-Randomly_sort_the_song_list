@@ -1,3 +1,20 @@
+## 本仓库的建立是为了在使用随机播放歌曲时，避免被二次播放
+
+问：多此一举吗，干嘛不用随机播放？
+答：的确可以，但是有概率会重复，这里可以[验证](https://github.com/yu234567/MoeKoeMusic-Randomly_sort_the_song_list/commit/1e4defa62114ccd70af9565bbcb43095fb7296f0)
+### 新功能：随机排序按键
+>由于只有win设备做了测试，所以不知其他设备是否有bug
+![](images/10.jpg)
+#### 功能介绍：
+- 点击按钮后变蓝后，将会打乱整个歌单的歌曲
+![](images/11.jpg)
+- 打乱后可以批量添加到播放列表，然后使用顺序播放避免重复播放
+![](images/12.jpg)
+
+
+--- 
+
+
 <br />
 <p align="center">
     <img src="https://github.com/iAJue/MoeKoeMusic/raw/main/images/logo.png" alt="Logo" width="156" height="156">
