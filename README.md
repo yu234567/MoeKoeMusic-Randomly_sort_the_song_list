@@ -1,6 +1,6 @@
 ## 本仓库的建立是为了在使用随机播放歌曲时，避免被二次播放
 
-问：多此一举吗，干嘛不用随机播放？
+问：多此一举吗，干嘛不用随机播放？  
 答：的确可以，但是有概率会重复，这里可以[验证](https://github.com/yu234567/MoeKoeMusic-Randomly_sort_the_song_list/commit/1e4defa62114ccd70af9565bbcb43095fb7296f0)
 ### 新功能：随机排序按键
 >由于只有win设备做了测试，所以不知其他设备是否有bug
