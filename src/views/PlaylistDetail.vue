@@ -82,12 +82,10 @@
                         </button>
                     </div>
 
-                    
                     <!-- 添加随机排列按钮 - 只在歌单页面显示 -->
                     <button v-if="!isArtist && !isAlbum" class="shuffle-order-btn" @click="toggleShuffle" :class="{ 'active': isShuffled }">
                         <i class="fas fa-random"></i>
                     </button>
-
                     
                     <button class="view-mode-btn" @click="toggleViewMode" :title="viewMode === 'list' ? '切换到网格视图' : '切换到列表视图'">
                         <i class="fas" :class="viewMode === 'list' ? 'fa-th' : 'fa-list'"></i>
@@ -214,11 +212,9 @@ const route = useRoute();
 const isArtist = computed(() => !!route.query.singerid);
 const isAlbum = computed(() => !!route.query.albumid);
 
-    
 // 在现有状态后面添加状态和方法
 const originalTracks = ref([]);
 const isShuffled = ref(false);
-
     
 // 通用状态
 const detail = ref({});
@@ -611,7 +607,14 @@ const loadMoreTracks = async () => {
                 }));
 
                 tracks.value = [...tracks.value, ...formattedTracks];
-                filteredTracks.value = tracks.value;
+
+                // 处于打乱状态，则新歌追加到末尾
+                if (isShuffled.value) {
+                  originalTracks.value = [...originalTracks.value, ...formattedTracks];
+                } else {
+                  filteredTracks.value = tracks.value;
+                }
+                
                 requestCount.value++; // 增加请求计数
                 hasMore.value = rawSongs.length >= curPageSize && tracks.value.length < totalCount.value;
             } else {
@@ -656,7 +659,14 @@ const loadMoreTracks = async () => {
                 });
 
                 tracks.value = [...tracks.value, ...formattedTracks];
-                filteredTracks.value = tracks.value;
+                
+                // 处于打乱状态，则新歌追加到末尾
+                if (isShuffled.value) {
+                  originalTracks.value = [...originalTracks.value, ...formattedTracks];
+                } else {
+                  filteredTracks.value = tracks.value;
+                }
+                
                 requestCount.value++; // 增加请求计数
                 hasMore.value = rawSongs.length >= albumPageSize && tracks.value.length < totalCount.value;
             } else {
@@ -696,7 +706,14 @@ const loadMoreTracks = async () => {
                 });
 
                 tracks.value = [...tracks.value, ...formattedTracks];
-                filteredTracks.value = tracks.value;
+                
+                // 处于打乱状态，则新歌追加到末尾
+                if (isShuffled.value) {
+                  originalTracks.value = [...originalTracks.value, ...formattedTracks];
+                } else {
+                  filteredTracks.value = tracks.value;
+                }
+                
                 requestCount.value++; // 增加请求计数
                 hasMore.value = rawSongs.length >= curPageSize && tracks.value.length < totalCount.value;
             } else {
@@ -757,7 +774,6 @@ const playSong = (hash, name, img, author) => {
     props.playerControl.addSongToQueue(hash, name, img, author);
 };
 
-
 // 切换随机顺序
 const toggleShuffle = () => {
     if (!originalTracks.value.length) return;
@@ -780,7 +796,6 @@ const toggleShuffle = () => {
     isShuffled.value = !isShuffled.value;
 };
     
-
 // 加载所有剩余歌曲并追加到播放队列
 const loadAndAppendRemainingTracks = async () => {
     const loadedHashes = new Set(filteredTracks.value);
