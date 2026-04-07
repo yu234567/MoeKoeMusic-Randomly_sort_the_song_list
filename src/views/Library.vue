@@ -372,7 +372,14 @@ const getVip = async () => {
             window.$modal.alert(`签到成功，获得1天畅听VIP`);
         }
     } catch (error) {
-        window.$modal.alert('获取VIP失败, 一天仅限一次');
+        if(error.response.data.error_code == 131001){
+            window.$modal.alert('你今天已经签到过了');
+            return;
+        }else if(error.response.data.error_code == 20028){
+            window.$modal.alert('当前账号风控,请前往手机端领取');
+            return;
+        }
+        window.$modal.alert('获取VIP失败-' + error.response.data.error_code);
     }
 }
 const addAllSongsToQueue = () => {
